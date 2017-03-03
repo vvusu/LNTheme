@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThemeDetailVC">
+            <connections>
+                <outlet property="confirmBtn" destination="QwH-eO-Wal" id="vAa-9z-gTZ"/>
+                <outlet property="musicBg" destination="AlR-72-eyc" id="Njq-GP-iTh"/>
+                <outlet property="nameLabel" destination="sZ8-DB-G8s" id="0fo-dz-pZW"/>
+                <outlet property="titleLabel" destination="wBU-Mt-9pd" id="fu6-M2-238"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwH-eO-Wal">
+                    <rect key="frame" x="20" y="592" width="335" height="45"/>
+                    <color key="backgroundColor" red="0.46666666666666667" green="0.80392156862745101" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="6h4-8T-6te"/>
+                    </constraints>
+                    <state key="normal" title="使  用">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="selected" title="使用中">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="confirmBtnAction:" destination="-1" eventType="touchUpInside" id="6Gp-11-cr0"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AlR-72-eyc">
+                    <rect key="frame" x="65.5" y="80" width="245" height="350"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="350" id="4Ka-bl-Uae"/>
+                        <constraint firstAttribute="width" secondItem="AlR-72-eyc" secondAttribute="height" multiplier="61:87" id="p65-Yc-Qyz"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBU-Mt-9pd">
+                    <rect key="frame" x="30" y="474.5" width="315" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你的名字" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZ8-DB-G8s">
+                    <rect key="frame" x="154.5" y="435" width="65.5" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <accessibility key="accessibilityConfiguration">
+                <accessibilityTraits key="traits" notEnabled="YES"/>
+            </accessibility>
+            <constraints>
+                <constraint firstItem="sZ8-DB-G8s" firstAttribute="centerX" secondItem="wBU-Mt-9pd" secondAttribute="centerX" id="DhF-IP-5yf"/>
+                <constraint firstItem="AlR-72-eyc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="LZF-ml-NGw"/>
+                <constraint firstAttribute="trailing" secondItem="QwH-eO-Wal" secondAttribute="trailing" constant="20" id="RAn-da-nhn"/>
+                <constraint firstItem="sZ8-DB-G8s" firstAttribute="top" secondItem="AlR-72-eyc" secondAttribute="bottom" constant="5" id="WCK-vY-svf"/>
+                <constraint firstItem="wBU-Mt-9pd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="fhw-Kc-L2e"/>
+                <constraint firstItem="wBU-Mt-9pd" firstAttribute="top" secondItem="sZ8-DB-G8s" secondAttribute="bottom" constant="20" id="gHT-sC-Lwe"/>
+                <constraint firstAttribute="bottom" secondItem="QwH-eO-Wal" secondAttribute="bottom" constant="30" id="hme-om-Dpq"/>
+                <constraint firstItem="QwH-eO-Wal" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="mdT-Bg-dHE"/>
+                <constraint firstAttribute="trailing" secondItem="wBU-Mt-9pd" secondAttribute="trailing" constant="30" id="p5k-7w-lHq"/>
+                <constraint firstItem="AlR-72-eyc" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="uVW-AP-ubN"/>
+            </constraints>
+            <point key="canvasLocation" x="-216" y="61"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,6 @@
+framework module LNTheme {
+  umbrella header "LNTheme.h"
+
+  export *
+  module * { export * }
+}

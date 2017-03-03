@@ -1,0 +1,32 @@
+{
+    "colors": {
+        "c1": "b2770f",
+        "c2": "b2770f",
+        "c3": "aaaaaa",
+        "c4": "b2770f",
+        "c5": "b2770f",
+        "c6": "714b09",
+        "c7": "b2770f",
+        "c8": "FF157EFB",
+        "c9": "f4b23e",
+        "cred": "f42f1b",
+        "cmsgl": "333333",
+        "cmsgr": "ffffff",
+        "ctabn": "aaaaaa",
+        "ctabh": "ffffff"
+    },
+    "fonts": {
+        "f1": "8",
+        "f2": "9",
+        "f3": "10",
+        "f4": "14",
+        "f5": "16",
+    },
+    "coordinators": {
+        "NMTabBarBadgePointViewOriginOffset": "{0,0}",
+        "NMTabBarBadgePointViewHighlightOriginOffset": "{0,0}",
+        "NMTabBarBadgeTextViewOriginOffset": "{0,0}",
+        "NMTabBarBadgeTextViewHighlightOriginOffset": "{0,0}"
+    },
+    "hideseparator": 1
+}
