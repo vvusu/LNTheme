@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-<a href="#文档">文档</a> -
-<a href="#安装">安装</a> -
+<a href="#documents">Documents</a> -
+<a href="#introduction">Introduction</a> -
 <a href="#demo">Demo</a> -
 <a href="#contribution">Contribution</a>
 </p>
@@ -21,7 +21,7 @@
 # LNTheme
 动态主题切换框架，支持本地多主题配置或者网络多主题配置。
 
-## 文档
+## Documents
 
 ### 基本使用方法
 主题切换使用Name来标识，一个主题可以对应多个json配置文件。框架主要用json文件进行主题配置的。你需要在本地添加json配置文件，或者手动注册json文件。
@@ -164,7 +164,7 @@ __weak typeof(self) wself= self;
 }];
 ```
 
-## 安装
+## Introduction
 ### CocoaPods
 要使用CocoaPods时在Podfile中填写：
 
