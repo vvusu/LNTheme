@@ -11,4 +11,6 @@
 @interface UIImage (Tint)
 - (UIImage *)imageWithTintColor:(UIColor *)tintColor;
 - (UIImage *)imageWithGradientTintColor:(UIColor *)tintColor;
++ (UIImage *)imageWithName:(NSString *)name tintColor:(UIColor *)tintColor;
++ (UIImage *)imageWithName:(NSString *)name bradientTintColor:(UIColor *)tintColor;
 @end

@@ -146,6 +146,8 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
     if (!image) {
         image = [UIImage imageNamed:name];
+        //找不到去本地json配置中找key
+        image = image?:[UIImage imageNamed:[LNTheme instance].currentOthersDic[name]];
     }
     return image;
 }

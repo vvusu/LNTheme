@@ -10,6 +10,24 @@
 
 @implementation UIImage (Tint)
 
++ (UIImage *)imageWithName:(NSString *)name tintColor:(UIColor *)tintColor {
+    UIImage *image = [UIImage imageNamed:name];
+    if (image) {
+        return [image imageWithTintColor:tintColor];
+    } else {
+        return image;
+    }
+}
+
++ (UIImage *)imageWithName:(NSString *)name bradientTintColor:(UIColor *)tintColor {
+    UIImage *image = [UIImage imageNamed:name];
+    if (image) {
+        return [image imageWithGradientTintColor:tintColor];
+    } else {
+        return image;
+    }
+}
+
 - (UIImage *)imageWithTintColor:(UIColor *)tintColor {
     return [self imageWithTintColor:tintColor blendMode:kCGBlendModeDestinationIn];
 }
