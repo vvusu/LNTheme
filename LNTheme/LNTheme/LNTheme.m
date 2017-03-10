@@ -188,7 +188,7 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 #pragma mark - Coorderate
 
 + (CGPoint)pointForType:(NSString *)type {
-    NSArray *array = [[self class] arrayWithValue:type];
+   NSArray *array = [LNTheme getCoordinatorValuesWithType:type];
     if (2 == [array count]) {
         return CGPointMake([[self class] floatWithValue:array[0]],
                            [[self class] floatWithValue:array[1]]);
@@ -197,7 +197,7 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 }
 
 + (CGVector)vectorForType:(NSString *)type {
-    NSArray *array = [[self class] arrayWithValue:type];
+   NSArray *array = [LNTheme getCoordinatorValuesWithType:type];
     if (2 == [array count]) {
         return CGVectorMake([[self class] floatWithValue:array[0]],
                             [[self class] floatWithValue:array[1]]);
@@ -206,7 +206,7 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 }
 
 + (CGSize)sizeForType:(NSString *)type {
-    NSArray *array = [[self class] arrayWithValue:type];
+    NSArray *array = [LNTheme getCoordinatorValuesWithType:type];
     if (2 == [array count]) {
         return CGSizeMake([[self class] floatWithValue:array[0]],
                           [[self class] floatWithValue:array[1]]);
@@ -215,7 +215,7 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 }
 
 + (CGRect)rectForType:(NSString *)type {
-    NSArray *array = [[self class] arrayWithValue:type];
+    NSArray *array = [LNTheme getCoordinatorValuesWithType:type];
     if (4 == [array count]) {
         return CGRectMake([[self class] floatWithValue:array[0]],
                           [[self class] floatWithValue:array[1]],
@@ -226,7 +226,7 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 }
 
 + (UIEdgeInsets)edgeInsetsForType:(NSString *)type {
-    NSArray *array = [LNTheme arrayWithValue:type];
+    NSArray *array = [LNTheme getCoordinatorValuesWithType:type];
     if (4 == [array count]) {
         return UIEdgeInsetsMake([[self class] floatWithValue:array[0]],
                                 [[self class] floatWithValue:array[1]],
@@ -237,7 +237,7 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 }
 
 + (CGAffineTransform)affineTransformForType:(NSString *)type {
-    NSArray *array = [[self class] arrayWithValue:type];
+    NSArray *array = [LNTheme getCoordinatorValuesWithType:type];
     if (6 == [array count]) {
         return CGAffineTransformMake([[self class] floatWithValue:array[0]],
                                      [[self class] floatWithValue:array[1]],
@@ -247,6 +247,11 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
                                      [[self class] floatWithValue:array[5]]);
     }
     return CGAffineTransformIdentity;
+}
+
++ (NSArray *)getCoordinatorValuesWithType:(NSString *)type {
+    NSString *value = [LNTheme instance].currentOffsetDic[type];
+    return [LNTheme arrayWithValue:value];
 }
 
 #pragma mark - OtherType
