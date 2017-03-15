@@ -27,7 +27,7 @@
     return picker;
 }
 
-+ (instancetype)initWithCustomImageColorType:(NSString *)type size:(CGSize)size {
++ (instancetype)initWithImageColorType:(NSString *)type size:(CGSize)size {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
     picker.block = ^() {
         return [LNTheme imageForColorType:type size:size];
@@ -76,8 +76,8 @@
     return picker;
 }
 
-+ (instancetype)initWithCustomImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state {
-    LNThemePicker *picker = [self initWithCustomImageColorType:type size:size];
++ (instancetype)initWithImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state {
+    LNThemePicker *picker = [self initWithImageColorType:type size:size];
     picker.valueState = state;
     picker.type = ThemeStatePicker;
     return picker;
@@ -91,6 +91,7 @@
 }
 
 #pragma mark - ThemeCGColorPicker
+
 + (instancetype)initWithCGColor:(NSString *)type {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
     picker.type = ThemeCGColorPicker;
@@ -101,6 +102,7 @@
 }
 
 #pragma mark - ThemeCGFloatPicker
+
 + (instancetype)initWithCGFloat:(CGFloat)num {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
     picker.type = ThemeCGFloatPicker;
@@ -111,6 +113,7 @@
 }
 
 #pragma mark - ThemeEdgeInsetPicker
+
 + (instancetype)initWithImageInsets:(NSString *)type {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
     picker.type = ThemeEdgeInsetPicker;
@@ -121,6 +124,7 @@
 }
 
 #pragma mark - ThemeStatusBarPicker
+
 + (instancetype)initWithStatusBarAnimated:(BOOL)animated {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
     picker.type = ThemeStatusBarPicker;

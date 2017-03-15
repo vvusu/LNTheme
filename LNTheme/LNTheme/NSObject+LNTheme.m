@@ -279,7 +279,7 @@ static NSHashTable *themeHashTable;
 
 - (void)ln_backgroundImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state {
     [self setThemePicker:self selector:@"setBackgroundImage:forState:"
-                  picker:[LNThemePicker initWithCustomImageWithColorType:type size:size forState:(UIControlState)state]];
+                  picker:[LNThemePicker initWithImageWithColorType:type size:size forState:(UIControlState)state]];
 }
 
 - (void)ln_titleColor:(NSString *)type forState:(UIControlState)state {
@@ -295,7 +295,7 @@ static NSHashTable *themeHashTable;
 }
 
 - (void)ln_imageWithColorType:(NSString *)type size:(CGSize)size {
-    [self setThemePicker:self selector:@"setImage:" picker:[LNThemePicker initWithCustomImageColorType:type size:size]];
+    [self setThemePicker:self selector:@"setImage:" picker:[LNThemePicker initWithImageColorType:type size:size]];
 }
 
 @end
