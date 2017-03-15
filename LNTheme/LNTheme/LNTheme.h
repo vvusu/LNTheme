@@ -81,6 +81,7 @@ FOUNDATION_EXPORT  NSString * const LN_THEME_DEFAULT_NAME;
     @return UIImage
  */
 + (UIImage *)imageNamed:(NSString *)name;
++ (UIImage *)imageForColorType:(NSString *)type size:(CGSize)size;
 /**
     基础数据结构对象 Color
     @param type 名称

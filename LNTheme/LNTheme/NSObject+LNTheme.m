@@ -126,7 +126,7 @@ static NSHashTable *themeHashTable;
 
 @implementation UIColor (LNTheme)
 + (UIColor *)colorWithHexString:(NSString *)hexString {
-    NSString *colorString = [[hexString stringByReplacingOccurrencesOfString: @"#" withString: @""] uppercaseString];
+    NSString *colorString = [[hexString stringByReplacingOccurrencesOfString:@"#" withString:@""] uppercaseString];
     CGFloat alpha, red, blue, green;
     switch ([colorString length]) {
         case 3: // #RGB
@@ -277,6 +277,11 @@ static NSHashTable *themeHashTable;
                   picker:[LNThemePicker initWithImageName:name forState:(UIControlState)state]];
 }
 
+- (void)ln_backgroundImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state {
+    [self setThemePicker:self selector:@"setBackgroundImage:forState:"
+                  picker:[LNThemePicker initWithCustomImageWithColorType:type size:size forState:(UIControlState)state]];
+}
+
 - (void)ln_titleColor:(NSString *)type forState:(UIControlState)state {
     [self setThemePicker:self selector:@"setTitleColor:forState:"
                   picker:[LNThemePicker initWithColorType:type forState:state]];
@@ -287,6 +292,10 @@ static NSHashTable *themeHashTable;
 @implementation UIImageView (LNTheme)
 - (void)ln_imageNamed:(NSString *)name {
     [self setThemePicker:self selector:@"setImage:" picker:[LNThemePicker initWithImageName:name]];
+}
+
+- (void)ln_imageWithColorType:(NSString *)type size:(CGSize)size {
+    [self setThemePicker:self selector:@"setImage:" picker:[LNThemePicker initWithCustomImageColorType:type size:size]];
 }
 
 @end

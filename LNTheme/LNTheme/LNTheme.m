@@ -7,6 +7,7 @@
 //
 
 #import "LNTheme.h"
+#import "UIImage+Tint.h"
 #import <objc/runtime.h>
 
 NSString * const LN_THEME_DEFAULT_NAME = @"default";
@@ -150,6 +151,10 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
         image = image?:[UIImage imageNamed:[LNTheme instance].currentOthersDic[name]];
     }
     return image;
+}
+
++ (UIImage *)imageForColorType:(NSString *)type size:(CGSize)size {
+   return [UIImage imageWithColor:[LNTheme colorForType:type] size:size];
 }
 
 #pragma mark - Color

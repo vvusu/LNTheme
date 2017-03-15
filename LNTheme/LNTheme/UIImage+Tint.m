@@ -56,4 +56,13 @@
     return tintedImage;
 }
 
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)imageSize {
+    UIGraphicsBeginImageContextWithOptions(imageSize, 0, [UIScreen mainScreen].scale);
+    [color set];
+    UIRectFill(CGRectMake(0, 0, imageSize.width, imageSize.height));
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 @end

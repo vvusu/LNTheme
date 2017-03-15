@@ -27,13 +27,15 @@ typedef id (^LNThemePickerBlock)();
 #pragma mark - ThemePicker
 + (instancetype)initWithColorType:(NSString *)type;
 + (instancetype)initWithImageName:(NSString *)name;
++ (instancetype)initWithCustomImageColorType:(NSString *)type size:(CGSize)size;
 + (instancetype)initWithImageName:(NSString *)name renderingMode:(UIImageRenderingMode)mode;
 + (instancetype)initTextAttributesColorType:(NSString *)color font:(NSString *)font;
 
 #pragma mark - ThemeStatePicker
++ (instancetype)initWithColorType:(NSString *)type forState:(UIControlState)state;
 + (instancetype)initWithImageName:(NSString *)name forState:(UIControlState)state;
 + (instancetype)initWithImageName:(NSString *)name forBarMetrics:(UIBarMetrics)state;
-+ (instancetype)initWithColorType:(NSString *)type forState:(UIControlState)state;
++ (instancetype)initWithCustomImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state;
 + (instancetype)initTextAttributesColorType:(NSString *)color font:(NSString *)font forState:(UIControlState)state;
 
 #pragma mark - ThemeCGColorPicker

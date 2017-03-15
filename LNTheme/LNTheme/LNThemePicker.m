@@ -27,6 +27,14 @@
     return picker;
 }
 
++ (instancetype)initWithCustomImageColorType:(NSString *)type size:(CGSize)size {
+    LNThemePicker *picker = [[LNThemePicker alloc]init];
+    picker.block = ^() {
+        return [LNTheme imageForColorType:type size:size];
+    };
+    return picker;
+}
+
 + (instancetype)initWithImageName:(NSString *)name renderingMode:(UIImageRenderingMode)mode {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
     picker.block = ^() {
@@ -65,6 +73,13 @@
     LNThemePicker *picker = [self initWithImageName:name];
     picker.type = ThemeStatePicker;
     picker.valueState = (NSUInteger)state;
+    return picker;
+}
+
++ (instancetype)initWithCustomImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state {
+    LNThemePicker *picker = [self initWithCustomImageColorType:type size:size];
+    picker.valueState = state;
+    picker.type = ThemeStatePicker;
     return picker;
 }
 

@@ -57,13 +57,15 @@
 @end
 
 @interface UIButton (LNTheme)
+- (void)ln_titleColor:(NSString *)type forState:(UIControlState)state;
 - (void)ln_imageNamed:(NSString *)name forState:(UIControlState)state;
 - (void)ln_backgroundImageNamed:(NSString *)name forState:(UIControlState)state;
-- (void)ln_titleColor:(NSString *)type forState:(UIControlState)state;
+- (void)ln_backgroundImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state;
 @end
 
 @interface UIImageView (LNTheme)
 - (void)ln_imageNamed:(NSString *)name;
+- (void)ln_imageWithColorType:(NSString *)type size:(CGSize)size;
 @end
 
 @interface CALayer (LNTheme)

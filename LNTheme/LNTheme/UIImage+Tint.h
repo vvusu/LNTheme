@@ -13,4 +13,5 @@
 - (UIImage *)imageWithGradientTintColor:(UIColor *)tintColor;
 + (UIImage *)imageWithName:(NSString *)name tintColor:(UIColor *)tintColor;
 + (UIImage *)imageWithName:(NSString *)name bradientTintColor:(UIColor *)tintColor;
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)imageSize;
 @end
