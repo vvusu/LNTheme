@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.button ln_titleFont:@"f4"];
     [self.button ln_backgroundImageNamed:@"cm2_btm_bg" forState:UIControlStateNormal];
     [self.button ln_backgroundImageNamed:@"cm2_edit_cmt_bg" forState:UIControlStateHighlighted];
     
@@ -43,11 +44,19 @@
     [self.sliderView ln_maximumTrackTintColor:@"c3"];
     
     [self ln_customThemeAction:^id {
-        NSLog(@"WLLLLL");
+        NSLog(@"LN____Theme Action");
+        return nil;
+    }];
+    
+    [self ln_customFontAction:^id{
+        NSLog(@"LN____Font Action");
         return nil;
     }];
     
     // Do any additional setup after loading the view.
+}
+- (IBAction)testBtnAction:(id)sender {
+    [LNTheme changeFont:@"custom"];
 }
 
 - (void)didReceiveMemoryWarning {

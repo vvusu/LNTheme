@@ -7,16 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LNThemePicker.h"
 
 @interface NSObject (LNTheme)
 
 @property (strong, nonatomic)NSMutableDictionary *themePickers;
+- (void)updateFont;
 - (void)updateTheme;
+- (void)ln_customFontAction:(id(^)(void))block;
 - (void)ln_customThemeAction:(id(^)(void))block;
+- (void)setThemePicker:(NSObject *)object selector:(NSString *)sel picker:(LNThemePicker *)picker;
 @end
 
 @interface UIColor (LNTheme)
 + (UIColor *)colorWithHexString:(NSString *)hexString;
+@end
+
+@interface UIFont (LNTheme)
++ (UIFont *)fontWithHexString:(NSString *)hexString;
 @end
 
 @interface UIApplication (LNTheme)
@@ -51,12 +59,14 @@
 @end
 
 @interface UILabel (LNTheme)
+- (void)ln_font:(NSString *)type;
 - (void)ln_textColor:(NSString *)type;
 - (void)ln_shadowColor:(NSString *)type;
 - (void)ln_highlightedTextColor:(NSString *)type;
 @end
 
 @interface UIButton (LNTheme)
+- (void)ln_titleFont:(NSString *)type;
 - (void)ln_titleColor:(NSString *)type forState:(UIControlState)state;
 - (void)ln_imageNamed:(NSString *)name forState:(UIControlState)state;
 - (void)ln_backgroundImageNamed:(NSString *)name forState:(UIControlState)state;
@@ -75,10 +85,12 @@
 @end
 
 @interface UITextField (LNTheme)
+- (void)ln_textFont:(NSString *)type;
 - (void)ln_textColor:(NSString *)type;
 @end
 
 @interface UITextView (LNTheme)
+- (void)ln_textFont:(NSString *)type;
 - (void)ln_textColor:(NSString *)type;
 @end
 

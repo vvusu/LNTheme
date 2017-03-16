@@ -10,11 +10,16 @@
 #import "UIImage+Tint.h"
 #import <objc/runtime.h>
 
-NSString * const LN_THEME_DEFAULT_NAME = @"default";
+NSString *const LN_THEME_DEFAULT_NAME = @"default";
+NSString *const LN_FONT_DEFAULT_KEY = @"com.vvusu.LNTheme.defaultFont";
+NSString *const LN_THEME_DEFAULT_KEY = @"com.vvusu.LNTheme.defaultTheme";
+NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
 
 @interface LNTheme()
+@property (nonatomic, strong, readwrite) NSString *currentFont;
 @property (nonatomic, strong, readwrite) NSString *currentTheme;
 @property (nonatomic, strong, readwrite) NSString *currentThemePath;
+@property (nonatomic, strong, readwrite) NSMutableDictionary *localFonts;
 @property (nonatomic, strong, readwrite) NSMutableDictionary *localThemes;
 @property (nonatomic, strong, readwrite) NSMutableDictionary *currentFontDic;
 @property (nonatomic, strong, readwrite) NSMutableDictionary *currentColorDic;
@@ -32,31 +37,38 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
     return staticInstance;
 }
 
+- (NSMutableDictionary *)localThemes {
+    if (!_localThemes) {
+        _localThemes = [NSMutableDictionary dictionary];
+    }
+    return _localThemes;
+}
+
+- (NSMutableDictionary *)localFonts {
+    if (!_localFonts) {
+        _localFonts = [NSMutableDictionary dictionary];
+    }
+    return _localFonts;
+}
+
 - (id)init {
     if (self = [super init]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *themeName = [defaults objectForKey:@"com.vvusu.LNTheme.defaultTheme"];
+        NSString *themeFont = [defaults objectForKey:LN_FONT_DEFAULT_KEY];
+        NSString *themeName = [defaults objectForKey:LN_THEME_DEFAULT_KEY];
         if (!themeName) {
             themeName = LN_THEME_DEFAULT_NAME;
         }
+        if (!themeFont) {
+            themeFont = LN_THEME_DEFAULT_NAME;
+        }
         [self changeTheme:themeName];
+        [self changeFont:themeFont];
     }
     return self;
 }
 
-+ (NSString *)currentTheme {
-    return [LNTheme instance].currentTheme;
-}
-
-- (void)setCurrentTheme:(NSString *)currentTheme {
-    _currentTheme = currentTheme;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:currentTheme forKey:@"com.vvusu.LNTheme.defaultTheme"];
-    [defaults synchronize];
-}
-
 - (void)registerSubFrameworks {
-    self.localThemes = [NSMutableDictionary dictionary];
     unsigned int count;
     Method *methods = class_copyMethodList([self class], &count);
     for (int i = 0; i < count; i++) {
@@ -71,39 +83,56 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
         }
     }
     [[LNTheme instance] changeTheme:[LNTheme instance].currentTheme];
+    [[LNTheme instance] changeTheme:[LNTheme instance].currentFont];
 }
 
-+ (void)addTheme:(NSString *)themeName forPath:(NSString *)path {
-    if ([themeName length] > 0 && [path length] > 0) {
-        NSMutableArray *array = [[LNTheme instance].localThemes valueForKey:themeName];
-        if (!array) {
-            array = [NSMutableArray arrayWithCapacity:1];
-            [[LNTheme instance].localThemes setValue:array forKey:themeName];
-        }
-        [array addObject:path];
-    }
+- (void)setCurrentFont:(NSString *)currentFont {
+    _currentFont = currentFont;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:currentFont forKey:LN_FONT_DEFAULT_KEY];
+    [defaults synchronize];
+}
+
+- (void)setCurrentTheme:(NSString *)currentTheme {
+    _currentTheme = currentTheme;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:currentTheme forKey:LN_THEME_DEFAULT_KEY];
+    [defaults synchronize];
 }
 
 - (void)changeTheme:(NSString *)themeName {
-    NSMutableArray *JsonFileArr = [self.localThemes valueForKey:themeName];
-    if (!JsonFileArr) {
-        JsonFileArr = [NSMutableArray array];
-    }
-    self.currentThemePath = [NSString stringWithFormat:@"%@/%@",[LNTheme themeRootPath],themeName];
+    [self getThemeDicFromJsonFileWithName:themeName isFont:NO];
+}
+
+- (void)changeFont:(NSString *)fontName {
+    [self getThemeDicFromJsonFileWithName:fontName isFont:YES];
+}
+
+- (void)getThemeDicFromJsonFileWithName:(NSString *)name isFont:(BOOL)isFont {
+    NSMutableArray *JsonFileArr = isFont ? [self.localFonts valueForKey:name] : [self.localThemes valueForKey:name];
+    if (!JsonFileArr) { JsonFileArr = [NSMutableArray array];}
+    self.currentThemePath = [NSString stringWithFormat:@"%@/%@",[LNTheme themeRootPath],name];
+    
     //如果没有主题文件路径
     if ([LNTheme isFileExistAtPath:self.currentThemePath]) {
-         NSArray *fileNames = [LNTheme getFilenamelistOfType:@"json" fromDirPath:self.currentThemePath];
+        NSArray *fileNames = [LNTheme getFilenamelistOfType:@"json" fromDirPath:self.currentThemePath];
         for (NSString *name in fileNames) {
             NSString *fileFullPath = [NSString stringWithFormat:@"%@/%@",self.currentThemePath,name];
             [JsonFileArr addObject:fileFullPath];
         }
     } else {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"defaultTheme" ofType:@"json"];
-        if (filePath) {
-            [JsonFileArr addObject:filePath];
+        if (0 == JsonFileArr.count) {
+            if (isFont) {
+                self.currentFont = LN_THEME_DEFAULT_NAME;
+            } else {
+                self.currentTheme = LN_THEME_DEFAULT_NAME;
+            }
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"defaultTheme" ofType:@"json"];
+            if (filePath) {
+                [JsonFileArr addObject:filePath];
+            }
         }
     }
-    
     NSDictionary *themeTypeDic = @{@"fonts":[NSMutableDictionary dictionary],
                                    @"colors":[NSMutableDictionary dictionary],
                                    @"others":[NSMutableDictionary dictionary],
@@ -126,11 +155,15 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
         }
     }
     //添加配置
-    self.currentTheme = themeName;
-    self.currentFontDic = [themeTypeDic valueForKey:@"fonts"];
-    self.currentColorDic = [themeTypeDic valueForKey:@"colors"];
-    self.currentOthersDic = [themeTypeDic valueForKey:@"others"];
-    self.currentOffsetDic = [themeTypeDic valueForKey:@"coordinators"];
+    if (isFont) {
+        self.currentFont = name;
+        self.currentFontDic = [themeTypeDic valueForKey:@"fonts"];
+    } else {
+        self.currentTheme = name;
+        self.currentColorDic = [themeTypeDic valueForKey:@"colors"];
+        self.currentOthersDic = [themeTypeDic valueForKey:@"others"];
+        self.currentOffsetDic = [themeTypeDic valueForKey:@"coordinators"];
+    }
 }
 
 #pragma mark - Method
@@ -138,6 +171,33 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 + (void)changeTheme:(NSString *)themeName {
     [[LNTheme instance] changeTheme:themeName];
     [[LNTheme instance] updateTheme];
+}
+
++ (void)changeFont:(NSString *)fontName {
+    [[LNTheme instance] changeFont:fontName];
+    [[LNTheme instance] updateFont];
+}
+
++ (void)addFont:(NSString *)fontName forPath:(NSString *)path {
+    if ([fontName length] > 0 && [path length] > 0) {
+        NSMutableArray *array = [[LNTheme instance].localFonts valueForKey:fontName];
+        if (!array) {
+            array = [NSMutableArray array];
+            [[LNTheme instance].localFonts setValue:array forKey:fontName];
+        }
+        [array addObject:path];
+    }
+}
+
++ (void)addTheme:(NSString *)themeName forPath:(NSString *)path {
+    if ([themeName length] > 0 && [path length] > 0) {
+        NSMutableArray *array = [[LNTheme instance].localThemes valueForKey:themeName];
+        if (!array) {
+            array = [NSMutableArray array];
+            [[LNTheme instance].localThemes setValue:array forKey:themeName];
+        }
+        [array addObject:path];
+    }
 }
 
 #pragma mark - Image
@@ -183,10 +243,14 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 
 + (UIFont *)fontForType:(NSString *)type {
     if (type) {
-        NSString *fontSize = [LNTheme instance].currentFontDic[type];
-        return [UIFont systemFontOfSize:fontSize.floatValue];
+        NSString *hexString = [LNTheme instance].currentFontDic[type];
+        if (hexString) {
+            return [UIFont fontWithHexString:hexString];
+        } else {
+            return [UIFont systemFontOfSize:14];
+        }
     } else {
-        return [UIFont systemFontOfSize:10];
+        return [UIFont systemFontOfSize:14];
     }
 }
 
@@ -303,7 +367,15 @@ NSString * const LN_THEME_DEFAULT_NAME = @"default";
 }
 
 + (NSString *)themeRootPath {
-    return [NSString stringWithFormat:@"%@/Library/UserData/Skin/CurrentTheme",NSHomeDirectory()];
+    return [NSString stringWithFormat:@"%@%@",NSHomeDirectory(),LN_THEME_ROOTPATH];
+}
+
++ (NSString *)currentTheme {
+    return [LNTheme instance].currentTheme;
+}
+
++ (NSString *)currentFont {
+    return [LNTheme instance].currentFont;
 }
 
 @end

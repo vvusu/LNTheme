@@ -10,12 +10,13 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, LNThemePickerType) {
-    ThemePicker = 0,
-    ThemeStatePicker,
-    ThemeCGColorPicker,
-    ThemeCGFloatPicker,
-    ThemeEdgeInsetPicker,
-    ThemeStatusBarPicker
+    ThemePicker_Nomal = 0,
+    ThemePicker_Font,
+    ThemePicker_State,
+    ThemePicker_CGFloat,
+    ThemePicker_CGColor,
+    ThemePicker_EdgeInset,
+    ThemePicker_StatusBar
 };
 
 typedef id (^LNThemePickerBlock)();
@@ -25,6 +26,7 @@ typedef id (^LNThemePickerBlock)();
 @property (assign, nonatomic) UIControlState valueState;
 
 #pragma mark - ThemePicker
++ (instancetype)initWithFontType:(NSString *)type;
 + (instancetype)initWithColorType:(NSString *)type;
 + (instancetype)initWithImageName:(NSString *)name;
 + (instancetype)initWithImageColorType:(NSString *)type size:(CGSize)size;

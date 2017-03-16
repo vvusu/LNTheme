@@ -12,7 +12,7 @@
 #import "ThemeDetailVC.h"
 #import "ThemeSettingCell.h"
 #import "UIImageView+WebCache.h"
-#import "NSObject+LNTheme.h"
+#import <LNTheme/LNTheme.h>
 
 #define __async_main__ dispatch_async(dispatch_get_main_queue()
 #define __async_global__  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
@@ -44,6 +44,11 @@ static NSString *const KICellReuseIdentifier = @"ThemeSettingCell";
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerNib:[UINib nibWithNibName:KICellReuseIdentifier bundle:nil] forCellWithReuseIdentifier:KICellReuseIdentifier];
+    
+    
+    //注册自定的Font
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"customFont" ofType:@"json"];
+    [LNTheme addFont:@"custom" forPath:filePath];
 }
 
 - (void)didReceiveMemoryWarning {

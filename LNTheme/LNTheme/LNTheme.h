@@ -17,8 +17,11 @@
     },
     "fonts": {
        "f1": "8",
-       "f2": "9"
-    },
+       "f2": "i,9",
+       "f3": "B,20",
+       "f4": "wh,20",
+       "f5": "iconfont,35"
+     },
     "coordinators": {
         "LNTabBarBadgePointViewOriginOffset": "{0,0}",
         "LNTabBarBadgePointViewOrigin": "{0,0,12,11}"
@@ -42,6 +45,12 @@ FOUNDATION_EXPORT  NSString * const LN_THEME_DEFAULT_NAME;
     当前主题Name
  */
 + (NSString *)currentTheme;
+
+/**
+    当前FontName
+ */
++ (NSString *)currentFon;
+
 /**
     沙盒中主题存储的根目录
  */
@@ -50,31 +59,52 @@ FOUNDATION_EXPORT  NSString * const LN_THEME_DEFAULT_NAME;
     启动本地主题注册接口 适用于多Frameworks注册
     各模块需要编写LNTheme的分类，并以‘registerTheme_’作为前缀命名
     - (void)registerTheme_Host {
-        NSString *path1 = [[NSBundle mainBundle] pathForResource:@"1" ofType:@"json"]
-        NSString *path2 = [[NSBundle mainBundle] pathForResource:@"2" ofType:@"json"]
+        NSString *path1 = [[NSBundle mainBundle] pathForResource:@"theme_day" ofType:@"json"]
+        NSString *path2 = [[NSBundle mainBundle] pathForResource:@"theme_night" ofType:@"json"]
         [[self class] addTheme:LN_THEME_DEFAULT_NAME forPath:path1];
         [[self class] addTheme:@"day" forPath:path2];
+ 
+        //如果有本地字体
+        [[self class] addFont:LN_THEME_DEFAULT_NAME forPath:path1];
     }
  */
 - (void)registerSubFrameworks;
+
+/**
+    切换字体，初始值为default
+    如果当前主题不存在，则自动切换回default
+    @param fontName 当前字体
+ */
++ (void)changeFont:(NSString *)fontName;
+
+/**
+    注册本地字体的路径，可以多次调用
+    @param fontName 主题名字 默认主题为LN_DEFAULT_THEME_NAME("default")
+    @param path 目录地址
+ */
++ (void)addFont:(NSString *)fontName forPath:(NSString *)path;
+
 /**
     切换主题，初始值为default
     如果当前主题不存在，则自动切换回default
     @param themeName 当前主题
  */
 + (void)changeTheme:(NSString *)themeName;
+
 /**
-    注册有限主题的路径，可以多次调用
+    注册本地主题的路径，可以多次调用
     @param themeName 主题名字 默认主题为LN_DEFAULT_THEME_NAME("default")
     @param path 目录地址
  */
 + (void)addTheme:(NSString *)themeName forPath:(NSString *)path;
+
 /**
     基础数据结构对象 Font
     @param type 名称
     @return UIFont
  */
 + (UIFont *)fontForType:(NSString *)type;
+
 /**
     基础数据结构对象Image，和JSON文件同级目录或者BUNDLE
     @param name 名称
@@ -82,18 +112,21 @@ FOUNDATION_EXPORT  NSString * const LN_THEME_DEFAULT_NAME;
  */
 + (UIImage *)imageNamed:(NSString *)name;
 + (UIImage *)imageForColorType:(NSString *)type size:(CGSize)size;
+
 /**
     基础数据结构对象 Color
     @param type 名称
     @return UIColor
  */
 + (UIColor *)colorForType:(NSString *)type;
+
 /**
     除Color,Font,Image,Coorderate之外
     @param type 名称
     @return id值
  */
 + (id)otherForType:(NSString *)type;
+
 /**
     基础数据结构对象 Coorderate
     @param type 名称 格式：{1,1,1,1}

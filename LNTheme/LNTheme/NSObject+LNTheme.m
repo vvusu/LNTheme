@@ -54,10 +54,26 @@ static NSHashTable *themeHashTable;
     for (NSObject *objetc in self.themeHashTable) {
         [objetc.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
             NSMutableArray *arry = object;
-            [arry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [UIView animateWithDuration:0.3 animations:^{
+            [arry enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.type != ThemePicker_Font) {
+                    [UIView animateWithDuration:0.3 animations:^{
+                        [objetc performThemePicker:key picker:obj];
+                    }];
+                }
+            }];
+        }];
+    }
+}
+
+//更新字体 遍历Map 字体
+- (void)updateFont {
+    for (NSObject *objetc in self.themeHashTable) {
+        [objetc.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+            NSMutableArray *arry = object;
+            [arry enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.type == ThemePicker_Font) {
                     [objetc performThemePicker:key picker:obj];
-                }];
+                }
             }];
         }];
     }
@@ -74,35 +90,36 @@ static NSHashTable *themeHashTable;
 
     //调用方法
     switch (picker.type) {
-        case ThemePicker: {
+        case ThemePicker_Nomal:
+        case ThemePicker_Font: {
             void (*func)(id, SEL, id) = (void *)imp;
             func(self, selector, value);
         }
             break;
-        case ThemeStatePicker: {
+        case ThemePicker_State: {
             void (*func)(id, SEL, id, UIControlState) = (void *)imp;
             func(self, selector, value, picker.valueState);
         }
             break;
-        case ThemeCGColorPicker: {
+        case ThemePicker_CGColor: {
             void (*func)(id, SEL, CGColorRef) = (void *)imp;
             CGColorRef color = ((UIColor *)value).CGColor;
             func(self, selector, color);
         }
             break;
-        case ThemeCGFloatPicker: {
+        case ThemePicker_CGFloat: {
             void (*func)(id, SEL, CGFloat) = (void *)imp;
             NSNumber *num = value;
             func(self, selector, num.floatValue);
         }
             break;
-        case ThemeEdgeInsetPicker: {
+        case ThemePicker_EdgeInset: {
             void (*func)(id, SEL, UIEdgeInsets) = (void *)imp;
             NSValue *empty = value;
             func(self, selector, empty.UIEdgeInsetsValue);
         }
             break;
-        case ThemeStatusBarPicker: {
+        case ThemePicker_StatusBar: {
             void (*func)(id, SEL, UIStatusBarStyle, BOOL) = (void *)imp;
             NSNumber *num = value;
             UIStatusBarStyle style = num.integerValue;
@@ -112,14 +129,26 @@ static NSHashTable *themeHashTable;
     }
 }
 
+- (void)ln_customFontAction:(id(^)(void))block {
+    LNThemePicker *picker = [[LNThemePicker alloc] init];
+    picker.type = ThemePicker_Font;
+    picker.block = block;
+    [self setThemePicker:self selector:@"ln_customFontInternalAction" picker:picker];
+}
+
 - (void)ln_customThemeAction:(id(^)(void))block {
     LNThemePicker *picker = [[LNThemePicker alloc] init];
+    picker.type = ThemePicker_Nomal;
     picker.block = block;
     [self setThemePicker:self selector:@"ln_customThemeInternalAction" picker:picker];
 }
 
 //自定义主题事件只是为了注册方法
 - (void)ln_customThemeInternalAction {
+}
+
+//自定义Font触发事件
+- (void)ln_customFontInternalAction {
 }
 
 @end
@@ -166,6 +195,61 @@ static NSHashTable *themeHashTable;
     unsigned hexComponent;
     [[NSScanner scannerWithString: fullHex] scanHexInt: &hexComponent];
     return hexComponent / 255.0;
+}
+
+@end
+
+@implementation UIFont (LNTheme)
++ (UIFont *)fontWithHexString:(NSString *)hexString {
+    NSArray *array = [hexString componentsSeparatedByString:@","];
+    NSLog(@"%@",array);
+    if (array.count == 1) {
+        NSString *fontSize = array.firstObject;
+        return [UIFont systemFontOfSize:fontSize.floatValue];
+    }
+    else if (array.count == 2) {
+        NSString *fontName = array.firstObject;
+        CGFloat fontSize = ((NSString *)array.lastObject).floatValue;
+        if ([[fontName lowercaseString] hasPrefix:@"b"]) {
+            return [UIFont boldSystemFontOfSize:fontSize];
+        }
+        else if ([[fontName lowercaseString] hasPrefix:@"i"]) {
+            return [UIFont italicSystemFontOfSize:fontSize];
+        }
+        else if ([fontName isEqualToString:@"wu"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightUltraLight];
+        }
+        else if ([fontName isEqualToString:@"wt"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightThin];
+        }
+        else if ([fontName isEqualToString:@"wl"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightLight];
+        }
+        else if ([fontName isEqualToString:@"wr"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightRegular];
+        }
+        else if ([fontName isEqualToString:@"wm"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightMedium];
+        }
+        else if ([fontName isEqualToString:@"ws"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightSemibold];
+        }
+        else if ([fontName isEqualToString:@"wB"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightBold];
+        }
+        else if ([fontName isEqualToString:@"wh"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightHeavy];
+        }
+        else if ([fontName isEqualToString:@"wb"]) {
+            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightBlack];
+        }
+        else {
+            return [UIFont fontWithName:fontName size:fontSize];
+        }
+    }
+    else {
+        return [UIFont systemFontOfSize:14];
+    }
 }
 
 @end
@@ -252,6 +336,10 @@ static NSHashTable *themeHashTable;
 @end
 
 @implementation UILabel (LNTheme)
+- (void)ln_font:(NSString *)type {
+    [self setThemePicker:self selector:@"setFont:" picker:[LNThemePicker initWithFontType:type]];
+}
+
 - (void)ln_textColor:(NSString *)type {
     [self setThemePicker:self selector:@"setTextColor:" picker:[LNThemePicker initWithColorType:type]];
 }
@@ -267,6 +355,10 @@ static NSHashTable *themeHashTable;
 @end
 
 @implementation UIButton (LNTheme)
+- (void)ln_titleFont:(NSString *)type {
+    [self setThemePicker:self.titleLabel selector:@"setFont:" picker:[LNThemePicker initWithFontType:type]];
+}
+
 - (void)ln_imageNamed:(NSString *)name forState:(UIControlState)state {
     [self setThemePicker:self selector:@"setImage:forState:"
                   picker:[LNThemePicker initWithImageName:name forState:(UIControlState)state]];
@@ -316,6 +408,10 @@ static NSHashTable *themeHashTable;
 @end
 
 @implementation UITextField (LNTheme)
+- (void)ln_textFont:(NSString *)type {
+    [self setThemePicker:self selector:@"setFont:" picker:[LNThemePicker initWithFontType:type]];
+}
+
 - (void)ln_textColor:(NSString *)type {
    [self setThemePicker:self selector:@"setTextColor:" picker:[LNThemePicker initWithColorType:type]];
 }
@@ -323,6 +419,10 @@ static NSHashTable *themeHashTable;
 @end
 
 @implementation UITextView (LNTheme)
+- (void)ln_textFont:(NSString *)type {
+    [self setThemePicker:self selector:@"setFont:" picker:[LNThemePicker initWithFontType:type]];
+}
+
 - (void)ln_textColor:(NSString *)type {
    [self setThemePicker:self selector:@"setTextColor:" picker:[LNThemePicker initWithColorType:type]];
 }

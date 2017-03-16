@@ -11,10 +11,21 @@
 
 @implementation LNThemePicker
 
+#pragma mark - Base
+
 + (instancetype)initWithColorType:(NSString *)type {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
     picker.block = ^() {
        return [LNTheme colorForType:type];
+    };
+    return picker;
+}
+
++ (instancetype)initWithFontType:(NSString *)type {
+    LNThemePicker *picker = [[LNThemePicker alloc]init];
+    picker.type = ThemePicker_Font;
+    picker.block = ^() {
+        return [LNTheme fontForType:type];
     };
     return picker;
 }
@@ -58,20 +69,20 @@
 + (instancetype)initWithColorType:(NSString *)type forState:(UIControlState)state {
     LNThemePicker *picker = [self initWithColorType:type];
     picker.valueState = state;
-    picker.type = ThemeStatePicker;
+    picker.type = ThemePicker_State;
     return picker;
 }
 
 + (instancetype)initWithImageName:(NSString *)name forState:(UIControlState)state {
    LNThemePicker *picker = [self initWithImageName:name];
     picker.valueState = state;
-    picker.type = ThemeStatePicker;
+    picker.type = ThemePicker_State;
     return picker;
 }
 
 + (instancetype)initWithImageName:(NSString *)name forBarMetrics:(UIBarMetrics)state {
     LNThemePicker *picker = [self initWithImageName:name];
-    picker.type = ThemeStatePicker;
+    picker.type = ThemePicker_State;
     picker.valueState = (NSUInteger)state;
     return picker;
 }
@@ -79,14 +90,14 @@
 + (instancetype)initWithImageWithColorType:(NSString *)type size:(CGSize)size forState:(UIControlState)state {
     LNThemePicker *picker = [self initWithImageColorType:type size:size];
     picker.valueState = state;
-    picker.type = ThemeStatePicker;
+    picker.type = ThemePicker_State;
     return picker;
 }
 
 + (instancetype)initTextAttributesColorType:(NSString *)color font:(NSString *)font forState:(UIControlState)state {
     LNThemePicker *picker = [self initTextAttributesColorType:color font:font];
     picker.valueState = state;
-    picker.type = ThemeStatePicker;
+    picker.type = ThemePicker_State;
     return picker;
 }
 
@@ -94,7 +105,7 @@
 
 + (instancetype)initWithCGColor:(NSString *)type {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
-    picker.type = ThemeCGColorPicker;
+    picker.type = ThemePicker_CGColor;
     picker.block = ^() {
         return [LNTheme colorForType:type];
     };
@@ -105,7 +116,7 @@
 
 + (instancetype)initWithCGFloat:(CGFloat)num {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
-    picker.type = ThemeCGFloatPicker;
+    picker.type = ThemePicker_CGFloat;
     picker.block = ^() {
         return [NSNumber numberWithFloat:num];
     };
@@ -116,7 +127,7 @@
 
 + (instancetype)initWithImageInsets:(NSString *)type {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
-    picker.type = ThemeEdgeInsetPicker;
+    picker.type = ThemePicker_EdgeInset;
     picker.block = ^() {
         return [NSValue valueWithUIEdgeInsets:[LNTheme edgeInsetsForType:type]];
     };
@@ -127,7 +138,7 @@
 
 + (instancetype)initWithStatusBarAnimated:(BOOL)animated {
     LNThemePicker *picker = [[LNThemePicker alloc]init];
-    picker.type = ThemeStatusBarPicker;
+    picker.type = ThemePicker_StatusBar;
     picker.valueState = animated;
     picker.block = ^() {
         return [NSNumber numberWithFloat:0];
