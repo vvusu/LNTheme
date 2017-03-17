@@ -10,10 +10,10 @@
 #import "UIImage+Tint.h"
 #import <objc/runtime.h>
 
-NSString *const LN_THEME_DEFAULT_NAME = @"default";
-NSString *const LN_FONT_DEFAULT_KEY = @"com.vvusu.LNTheme.defaultFont";
-NSString *const LN_THEME_DEFAULT_KEY = @"com.vvusu.LNTheme.defaultTheme";
-NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
+NSString *const LNTHEME_DEFAULT_NAME = @"default";
+NSString *const LNTHEME_FONT_KEY = @"com.vvusu.LNTheme.defaultFont";
+NSString *const LNTHEME_THEME_KEY = @"com.vvusu.LNTheme.defaultTheme";
+NSString *const LNTHEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
 
 @interface LNTheme()
 @property (nonatomic, strong, readwrite) NSString *currentFont;
@@ -54,13 +54,13 @@ NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
 - (id)init {
     if (self = [super init]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *themeFont = [defaults objectForKey:LN_FONT_DEFAULT_KEY];
-        NSString *themeName = [defaults objectForKey:LN_THEME_DEFAULT_KEY];
+        NSString *themeFont = [defaults objectForKey:LNTHEME_FONT_KEY];
+        NSString *themeName = [defaults objectForKey:LNTHEME_THEME_KEY];
         if (!themeName) {
-            themeName = LN_THEME_DEFAULT_NAME;
+            themeName = LNTHEME_DEFAULT_NAME;
         }
         if (!themeFont) {
-            themeFont = LN_THEME_DEFAULT_NAME;
+            themeFont = LNTHEME_DEFAULT_NAME;
         }
         [self changeTheme:themeName];
         [self changeFont:themeFont];
@@ -68,7 +68,7 @@ NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
     return self;
 }
 
-- (void)registerSubFrameworks {
+- (void)loadLocalJsonFiles {
     unsigned int count;
     Method *methods = class_copyMethodList([self class], &count);
     for (int i = 0; i < count; i++) {
@@ -89,26 +89,26 @@ NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
 - (void)setCurrentFont:(NSString *)currentFont {
     _currentFont = currentFont;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:currentFont forKey:LN_FONT_DEFAULT_KEY];
+    [defaults setObject:currentFont forKey:LNTHEME_FONT_KEY];
     [defaults synchronize];
 }
 
 - (void)setCurrentTheme:(NSString *)currentTheme {
     _currentTheme = currentTheme;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:currentTheme forKey:LN_THEME_DEFAULT_KEY];
+    [defaults setObject:currentTheme forKey:LNTHEME_THEME_KEY];
     [defaults synchronize];
 }
 
 - (void)changeTheme:(NSString *)themeName {
-    [self getThemeDicFromJsonFileWithName:themeName isFont:NO];
+    [self themeDicFromJsonFileName:themeName isFont:NO];
 }
 
 - (void)changeFont:(NSString *)fontName {
-    [self getThemeDicFromJsonFileWithName:fontName isFont:YES];
+    [self themeDicFromJsonFileName:fontName isFont:YES];
 }
 
-- (void)getThemeDicFromJsonFileWithName:(NSString *)name isFont:(BOOL)isFont {
+- (void)themeDicFromJsonFileName:(NSString *)name isFont:(BOOL)isFont {
     NSMutableArray *JsonFileArr = isFont ? [self.localFonts valueForKey:name] : [self.localThemes valueForKey:name];
     if (!JsonFileArr) {
         JsonFileArr = [NSMutableArray array];
@@ -126,9 +126,9 @@ NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
     } else {
         if (0 == JsonFileArr.count) {
             if (isFont) {
-                self.currentFont = LN_THEME_DEFAULT_NAME;
+                self.currentFont = LNTHEME_DEFAULT_NAME;
             } else {
-                self.currentTheme = LN_THEME_DEFAULT_NAME;
+                self.currentTheme = LNTHEME_DEFAULT_NAME;
             }
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"defaultTheme" ofType:@"json"];
             if (filePath) {
@@ -370,7 +370,7 @@ NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
 }
 
 + (NSString *)themeRootPath {
-    return [NSString stringWithFormat:@"%@%@",NSHomeDirectory(),LN_THEME_ROOTPATH];
+    return [NSString stringWithFormat:@"%@%@",NSHomeDirectory(),LNTHEME_ROOTPATH];
 }
 
 + (NSString *)currentTheme {

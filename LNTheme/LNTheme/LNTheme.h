@@ -36,7 +36,7 @@
 #import "NSObject+LNTheme.h"
 
 //默认主题的名称
-FOUNDATION_EXPORT  NSString * const LN_THEME_DEFAULT_NAME;
+FOUNDATION_EXPORT  NSString * const LNTHEME_DEFAULT_NAME;
 
 @interface LNTheme : NSObject
 
@@ -49,7 +49,7 @@ FOUNDATION_EXPORT  NSString * const LN_THEME_DEFAULT_NAME;
 /**
     当前FontName
  */
-+ (NSString *)currentFon;
++ (NSString *)currentFont;
 
 /**
     沙盒中主题存储的根目录
@@ -61,14 +61,14 @@ FOUNDATION_EXPORT  NSString * const LN_THEME_DEFAULT_NAME;
     - (void)registerTheme_Host {
         NSString *path1 = [[NSBundle mainBundle] pathForResource:@"theme_day" ofType:@"json"]
         NSString *path2 = [[NSBundle mainBundle] pathForResource:@"theme_night" ofType:@"json"]
-        [[self class] addTheme:LN_THEME_DEFAULT_NAME forPath:path1];
+        [[self class] addTheme:LNTHEME_DEFAULT_NAME forPath:path1];
         [[self class] addTheme:@"day" forPath:path2];
  
         //如果有本地字体
-        [[self class] addFont:LN_THEME_DEFAULT_NAME forPath:path1];
+        [[self class] addFont:LNTHEME_DEFAULT_NAME forPath:path1];
     }
  */
-- (void)registerSubFrameworks;
+- (void)loadLocalJsonFiles;
 
 /**
     切换字体，初始值为default
