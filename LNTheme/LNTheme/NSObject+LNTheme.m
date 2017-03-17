@@ -202,7 +202,6 @@ static NSHashTable *themeHashTable;
 @implementation UIFont (LNTheme)
 + (UIFont *)fontWithHexString:(NSString *)hexString {
     NSArray *array = [hexString componentsSeparatedByString:@","];
-    NSLog(@"%@",array);
     if (array.count == 1) {
         NSString *fontSize = array.firstObject;
         return [UIFont systemFontOfSize:fontSize.floatValue];
@@ -210,45 +209,70 @@ static NSHashTable *themeHashTable;
     else if (array.count == 2) {
         NSString *fontName = array.firstObject;
         CGFloat fontSize = ((NSString *)array.lastObject).floatValue;
-        if ([[fontName lowercaseString] hasPrefix:@"b"]) {
+        UIFont *defaultFont = [UIFont systemFontOfSize:fontSize];
+        
+        if ([[fontName lowercaseString] isEqualToString:@"b"]) {
             return [UIFont boldSystemFontOfSize:fontSize];
         }
-        else if ([[fontName lowercaseString] hasPrefix:@"i"]) {
+        else if ([[fontName lowercaseString] isEqualToString:@"i"]) {
             return [UIFont italicSystemFontOfSize:fontSize];
         }
-        else if ([fontName isEqualToString:@"wu"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightUltraLight];
+        else if ([fontName hasPrefix:@"sw"]) {
+            if ([UIDevice currentDevice].systemVersion.doubleValue >= 8.2) {
+                NSString *fontWeight = [fontName substringWithRange:NSMakeRange(2, 1)];
+                return [UIFont systemFontOfSize:fontSize weight:[UIFont weightFromString:fontWeight]];
+            }
+            else {
+                return defaultFont;
+            }
         }
-        else if ([fontName isEqualToString:@"wt"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightThin];
-        }
-        else if ([fontName isEqualToString:@"wl"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightLight];
-        }
-        else if ([fontName isEqualToString:@"wr"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightRegular];
-        }
-        else if ([fontName isEqualToString:@"wm"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightMedium];
-        }
-        else if ([fontName isEqualToString:@"ws"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightSemibold];
-        }
-        else if ([fontName isEqualToString:@"wB"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightBold];
-        }
-        else if ([fontName isEqualToString:@"wh"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightHeavy];
-        }
-        else if ([fontName isEqualToString:@"wb"]) {
-            return [UIFont systemFontOfSize:fontSize weight:UIFontWeightBlack];
+        else if ([fontName hasPrefix:@"smw"]) {
+            if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
+                NSString *fontWeight = [fontName substringWithRange:NSMakeRange(3, 1)];
+                return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:[UIFont weightFromString:fontWeight]];
+            }
+            else {
+                return defaultFont;
+            }
         }
         else {
             return [UIFont fontWithName:fontName size:fontSize];
         }
     }
     else {
-        return [UIFont systemFontOfSize:14];
+        return [UIFont systemFontOfSize:hexString.floatValue];
+    }
+}
+
++ (CGFloat)weightFromString:(NSString *)string {
+    if ([string isEqualToString:@"u"]) {
+        return UIFontWeightUltraLight;
+    }
+    else if ([string isEqualToString:@"t"]) {
+        return UIFontWeightThin;
+    }
+    else if ([string isEqualToString:@"l"]) {
+        return UIFontWeightLight;
+    }
+    else if ([string isEqualToString:@"r"]) {
+        return UIFontWeightRegular;
+    }
+    else if ([string isEqualToString:@"m"]) {
+        return UIFontWeightMedium;
+    }
+    else if ([string isEqualToString:@"s"]) {
+        return UIFontWeightSemibold;
+    }
+    else if ([string isEqualToString:@"B"]) {
+        return UIFontWeightBold;
+    }
+    else if ([string isEqualToString:@"h"]) {
+        return UIFontWeightHeavy;
+    }
+    else if ([string isEqualToString:@"b"]) {
+        return UIFontWeightBlack;
+    } else {
+        return UIFontWeightUltraLight;
     }
 }
 

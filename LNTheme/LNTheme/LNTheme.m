@@ -231,7 +231,7 @@ NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
                 return [UIColor colorWithHexString:hexString];
                 break;
             default:
-                return [UIColor whiteColor];
+                return [UIColor clearColor];
                 break;
         }
     } else {
