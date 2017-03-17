@@ -110,9 +110,12 @@ NSString *const LN_THEME_ROOTPATH = @"/Library/UserData/Skin/CurrentTheme";
 
 - (void)getThemeDicFromJsonFileWithName:(NSString *)name isFont:(BOOL)isFont {
     NSMutableArray *JsonFileArr = isFont ? [self.localFonts valueForKey:name] : [self.localThemes valueForKey:name];
-    if (!JsonFileArr) { JsonFileArr = [NSMutableArray array];}
-    self.currentThemePath = [NSString stringWithFormat:@"%@/%@",[LNTheme themeRootPath],name];
-    
+    if (!JsonFileArr) {
+        JsonFileArr = [NSMutableArray array];
+    }
+    if (!isFont) {
+        self.currentThemePath = [NSString stringWithFormat:@"%@/%@",[LNTheme themeRootPath],name];
+    }
     //如果没有主题文件路径
     if ([LNTheme isFileExistAtPath:self.currentThemePath]) {
         NSArray *fileNames = [LNTheme getFilenamelistOfType:@"json" fromDirPath:self.currentThemePath];

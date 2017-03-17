@@ -49,23 +49,23 @@ static NSHashTable *themeHashTable;
     [self.themeHashTable addObject:object];
 }
 
-//更新主题，遍历Map 设置主题
+//更新主题
 - (void)updateTheme {
     for (NSObject *objetc in self.themeHashTable) {
         [objetc.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
             NSMutableArray *arry = object;
-            [arry enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.type != ThemePicker_Font) {
-                    [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0.3 animations:^{
+                [arry enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.type != ThemePicker_Font) {
                         [objetc performThemePicker:key picker:obj];
-                    }];
-                }
+                    }
+                }];
             }];
         }];
     }
 }
 
-//更新字体 遍历Map 字体
+//更新字体
 - (void)updateFont {
     for (NSObject *objetc in self.themeHashTable) {
         [objetc.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
