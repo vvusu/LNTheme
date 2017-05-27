@@ -25,6 +25,9 @@
 
 @implementation ThemeDetailVC
 
+- (void)dealloc {
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -32,7 +35,9 @@
     self.titleLabel.text = self.model.descriptionField;
     [self.musicBg sd_setImageWithURL:[NSURL URLWithString:self.model.thumbnail]];
     [self.nameLabel ln_textColor:@"c8"];
+    [self.confirmBtn ln_backgroundColor:@"c7"];
     [self.confirmBtn ln_backgroundColor:@"c8"];
+
     // Do any additional setup after loading the view from its nib.
 }
 

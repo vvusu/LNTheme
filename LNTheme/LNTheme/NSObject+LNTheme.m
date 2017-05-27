@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "LNThemePicker.h"
 
+static BOOL isChangeTheme;
 static void *LNTheme_ThemeMap;
 static NSHashTable *themeHashTable;
 
@@ -35,7 +36,9 @@ static NSHashTable *themeHashTable;
 - (void)setThemePickers:(NSMutableDictionary *)themePickers {
     objc_setAssociatedObject(self, &LNTheme_ThemeMap, themePickers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (themePickers) {
-        [self.themeHashTable addObject:self];
+        if (!isChangeTheme) {
+            [self.themeHashTable addObject:self];
+        }
     }
 }
 
@@ -46,37 +49,44 @@ static NSHashTable *themeHashTable;
     [pickers addObject:picker];
     [object.themePickers setValue:pickers forKey:sel];
     [object performThemePicker:sel picker:picker];
-    [self.themeHashTable addObject:object];
+    //hastable添加会自动去重
+    if (!isChangeTheme) {
+        [self.themeHashTable addObject:object];
+    }
 }
 
 //更新主题
 - (void)updateTheme {
-    for (NSObject *objetc in self.themeHashTable) {
-        [objetc.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-            NSMutableArray *arry = object;
-            [UIView animateWithDuration:0.3 animations:^{
-                [arry enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (obj.type != ThemePicker_Font) {
-                        [objetc performThemePicker:key picker:obj];
-                    }
+    isChangeTheme = YES;
+    @synchronized(themeHashTable) {
+        for (NSObject *object in self.themeHashTable) {
+            if (object != nil) {
+                [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
+                    [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (obj.type != ThemePicker_Font) {
+                            [object performThemePicker:key picker:obj];
+                        }
+                    }];
                 }];
-            }];
-        }];
+            }
+        }
     }
+    isChangeTheme = NO;
 }
 
 //更新字体
 - (void)updateFont {
-    for (NSObject *objetc in self.themeHashTable) {
-        [objetc.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-            NSMutableArray *arry = object;
-            [arry enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    isChangeTheme = YES;
+    for (NSObject *object in self.themeHashTable) {
+        [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
+            [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (obj.type == ThemePicker_Font) {
-                    [objetc performThemePicker:key picker:obj];
+                    [object performThemePicker:key picker:obj];
                 }
             }];
         }];
     }
+    isChangeTheme = NO;
 }
 
 //解析，动态设置属性
