@@ -60,15 +60,13 @@ static NSHashTable *themeHashTable;
     isChangeTheme = YES;
     @synchronized(themeHashTable) {
         for (NSObject *object in self.themeHashTable) {
-            if (object != nil) {
-                [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
-                    [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        if (obj.type != ThemePicker_Font) {
-                            [object performThemePicker:key picker:obj];
-                        }
-                    }];
+            [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
+                [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.type != ThemePicker_Font) {
+                        [object performThemePicker:key picker:obj];
+                    }
                 }];
-            }
+            }];
         }
     }
     isChangeTheme = NO;
