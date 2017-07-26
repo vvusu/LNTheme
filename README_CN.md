@@ -6,7 +6,8 @@
 <a href="#demo">Demo</a> -
 <a href="#installation">Installation</a> -
 <a href="#documents">Documents</a> -
-<a href="#contribution">Contribution</a>
+<a href="#contribution">Contribution</a> - 
+<a href="https://github.com/wedxz/LNTheme">英文文档</a>
 </p>
 
 <p align="center">
