@@ -32,7 +32,6 @@
 		AF5E525A1E667954001E9E82 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E52511E667954001E9E82 /* UIImage+Tint.m */; };
 		AF5E52681E667B59001E9E82 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E52671E667B59001E9E82 /* main.m */; };
 		AF5E526B1E667B59001E9E82 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E526A1E667B59001E9E82 /* AppDelegate.m */; };
-		AF5E52731E667B59001E9E82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF5E52721E667B59001E9E82 /* Assets.xcassets */; };
 		AF5E52761E667B59001E9E82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF5E52741E667B59001E9E82 /* LaunchScreen.storyboard */; };
 		AF5E52EC1E667BB7001E9E82 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E529A1E667BB7001E9E82 /* FLAnimatedImage.m */; };
 		AF5E52ED1E667BB7001E9E82 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF5E529C1E667BB7001E9E82 /* FLAnimatedImageView.m */; };
@@ -70,6 +69,7 @@
 		AF5E53301E667C1C001E9E82 /* LNTheme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB617FD1E120DEE00D15764 /* LNTheme.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AF5E53331E6681F3001E9E82 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AF5E53321E6681F3001E9E82 /* libz.tbd */; };
 		AF5E53351E668BB8001E9E82 /* defaultTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = AF5E53341E668BB8001E9E82 /* defaultTheme.json */; };
+		AF861F141F2797F600E2AFCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF861F121F27974D00E2AFCE /* Assets.xcassets */; };
 		AFB0A4C41E7A83D0003777DF /* ThemeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB0A4BB1E7A83D0003777DF /* ThemeDetailVC.m */; };
 		AFB0A4C51E7A83D0003777DF /* ThemeDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFB0A4BC1E7A83D0003777DF /* ThemeDetailVC.xib */; };
 		AFB0A4C61E7A83D0003777DF /* ThemeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB0A4BE1E7A83D0003777DF /* ThemeModel.m */; };
@@ -115,7 +115,6 @@
 		AF5E52671E667B59001E9E82 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AF5E52691E667B59001E9E82 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AF5E526A1E667B59001E9E82 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AF5E52721E667B59001E9E82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF5E52751E667B59001E9E82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF5E52771E667B59001E9E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF5E52991E667BB7001E9E82 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
@@ -187,6 +186,7 @@
 		AF5E53151E667C01001E9E82 /* skineTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = skineTheme.json; sourceTree = "<group>"; };
 		AF5E53321E6681F3001E9E82 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		AF5E53341E668BB8001E9E82 /* defaultTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaultTheme.json; sourceTree = "<group>"; };
+		AF861F121F27974D00E2AFCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFB0A4BA1E7A83D0003777DF /* ThemeDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeDetailVC.h; sourceTree = "<group>"; };
 		AFB0A4BB1E7A83D0003777DF /* ThemeDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeDetailVC.m; sourceTree = "<group>"; };
 		AFB0A4BC1E7A83D0003777DF /* ThemeDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeDetailVC.xib; sourceTree = "<group>"; };
@@ -262,6 +262,7 @@
 				AFB0A4B91E7A83B4003777DF /* ThemeVC */,
 				AFB0A4CA1E7A8421003777DF /* MyMusicVC */,
 				AFB0A4CE1E7A8464003777DF /* BaseVC */,
+				AF5E52771E667B59001E9E82 /* Info.plist */,
 				AF5E53341E668BB8001E9E82 /* defaultTheme.json */,
 				AF5E53151E667C01001E9E82 /* skineTheme.json */,
 				AFB0A4D51E7A854E003777DF /* customFont.json */,
@@ -269,8 +270,7 @@
 				AF5E526A1E667B59001E9E82 /* AppDelegate.m */,
 				AF5E53101E667C01001E9E82 /* Main.storyboard */,
 				AF5E52741E667B59001E9E82 /* LaunchScreen.storyboard */,
-				AF5E52771E667B59001E9E82 /* Info.plist */,
-				AF5E52721E667B59001E9E82 /* Assets.xcassets */,
+				AF861F121F27974D00E2AFCE /* Assets.xcassets */,
 				AF5E52661E667B59001E9E82 /* Supporting Files */,
 			);
 			path = LNThemeDemo;
@@ -632,12 +632,12 @@
 			files = (
 				AF5E53271E667C01001E9E82 /* skineTheme.json in Resources */,
 				AFB0A4D61E7A854E003777DF /* customFont.json in Resources */,
+				AF5E53351E668BB8001E9E82 /* defaultTheme.json in Resources */,
+				AFB0A4C81E7A83D0003777DF /* ThemeSettingCell.xib in Resources */,
 				AFB0A4C51E7A83D0003777DF /* ThemeDetailVC.xib in Resources */,
 				AF5E53241E667C01001E9E82 /* Main.storyboard in Resources */,
+				AF861F141F2797F600E2AFCE /* Assets.xcassets in Resources */,
 				AF5E52761E667B59001E9E82 /* LaunchScreen.storyboard in Resources */,
-				AFB0A4C81E7A83D0003777DF /* ThemeSettingCell.xib in Resources */,
-				AF5E52731E667B59001E9E82 /* Assets.xcassets in Resources */,
-				AF5E53351E668BB8001E9E82 /* defaultTheme.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,6 +796,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.vvusu.LNThemeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -814,6 +815,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.vvusu.LNThemeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

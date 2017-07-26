@@ -4,48 +4,48 @@
   'roots': [
     {
       'type': 'directory',
-      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-dlzodpticgjglcbecfocyqlctyju/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers",
+      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-fzztdmeuhsyycdghmxdjwqueopta/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers",
       'contents': [
         {
           'type': 'file',
           'name': "LNTheme-Swift.h",
-          'external-contents': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-dlzodpticgjglcbecfocyqlctyju/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers/LNTheme-Swift.h"
+          'external-contents': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-fzztdmeuhsyycdghmxdjwqueopta/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers/LNTheme-Swift.h"
         },
         {
           'type': 'file',
           'name': "LNTheme.h",
-          'external-contents': "/Users/vvusu/Downloads/GitHub/LNSDK/LNTheme/LNTheme/LNTheme/LNTheme.h"
+          'external-contents': "/Users/vvusu/Downloads/GitHub/iOSSDK/LNTheme/LNTheme/LNTheme/LNTheme.h"
         },
         {
           'type': 'file',
           'name': "LNTheme.h",
-          'external-contents': "/Users/vvusu/Downloads/GitHub/LNSDK/LNTheme/LNTheme/LNTheme.h"
+          'external-contents': "/Users/vvusu/Downloads/GitHub/iOSSDK/LNTheme/LNTheme/LNTheme.h"
         },
         {
           'type': 'file',
           'name': "LNThemePicker.h",
-          'external-contents': "/Users/vvusu/Downloads/GitHub/LNSDK/LNTheme/LNTheme/LNTheme/LNThemePicker.h"
+          'external-contents': "/Users/vvusu/Downloads/GitHub/iOSSDK/LNTheme/LNTheme/LNTheme/LNThemePicker.h"
         },
         {
           'type': 'file',
           'name': "NSObject+LNTheme.h",
-          'external-contents': "/Users/vvusu/Downloads/GitHub/LNSDK/LNTheme/LNTheme/LNTheme/NSObject+LNTheme.h"
+          'external-contents': "/Users/vvusu/Downloads/GitHub/iOSSDK/LNTheme/LNTheme/LNTheme/NSObject+LNTheme.h"
         },
         {
           'type': 'file',
           'name': "UIImage+Tint.h",
-          'external-contents': "/Users/vvusu/Downloads/GitHub/LNSDK/LNTheme/LNTheme/LNTheme/UIImage+Tint.h"
+          'external-contents': "/Users/vvusu/Downloads/GitHub/iOSSDK/LNTheme/LNTheme/LNTheme/UIImage+Tint.h"
         }
       ]
     },
     {
       'type': 'directory',
-      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-dlzodpticgjglcbecfocyqlctyju/Build/Products/Debug-iphonesimulator/LNTheme.framework/Modules",
+      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-fzztdmeuhsyycdghmxdjwqueopta/Build/Products/Debug-iphonesimulator/LNTheme.framework/Modules",
       'contents': [
         {
           'type': 'file',
           'name': "module.modulemap",
-          'external-contents': "/Users/vvusu/Downloads/GitHub/LNSDK/LNTheme/build/LNTheme.build/Debug-iphonesimulator/LNTheme.build/module.modulemap"
+          'external-contents': "/Users/vvusu/Downloads/GitHub/iOSSDK/LNTheme/build/LNTheme.build/Debug-iphonesimulator/LNTheme.build/module.modulemap"
         }
       ]
     }

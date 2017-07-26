@@ -3,35 +3,58 @@
 </p>
 
 <p align="center">
-<a href="#documents">Documents</a> -
-<a href="#introduction">Introduction</a> -
 <a href="#demo">Demo</a> -
+<a href="#installation">Installation</a> -
+<a href="#documents">Documents</a> -
 <a href="#contribution">Contribution</a>
 </p>
-    
+
 <p align="center">
 <a href="http://cocoadocs.org/docsets/LNTheme"><img src="https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg?style=flat"></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
 <a href="https://developer.apple.com/ios"><img src="https://img.shields.io/badge/platform-iOS%207%2B-blue.svg?style=flat"></a>
 <a href="https://github.com/wedxz/LNTheme/tree/1.0.0"><img src="https://img.shields.io/badge/release-1.0.0-blue.svg"></a>
-<a href="https://codebeat.co/projects/github-com-wedxz-lntheme-master"><img alt="codebeat badge" src="https://codebeat.co/badges/900eef02-9b88-46eb-8ce9-440c1dc31435"/></a>
 <a href="https://github.com/wedxz/LNTheme/blob/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat"></a>
 </p>
 
 # LNTheme
-动态主题切换框架，支持本地多主题配置或者网络多主题配置。
+Dynamic theme switching framework that supports local multi-theme configuration or network multi-theme configuration.
 
+## Demo
+Use Netease cloud music API
+
+<p align="left">
+    <img src="./images/demo_1.gif" style="zoom:80%" align=left/>
+    <img src="./images/demo_2.gif" style="zoom:80%" align=right/>
+</p>
+
+## Installation
+### CocoaPods
+Installation with CocoaPods:
+
+```
+pod 'LNTheme'
+```
+### Carthage
+Installation with Cartfile:
+
+```
+github "wedxz/LNTheme"
+```
+### Source installation
+```
+Copy all the files in the "LNTheme / LNTheme" folder into your project
+```
 ## Documents
+### Basic use method
+The theme switch uses the Name to identify, a theme can correspond to multiple json configuration files. The framework is mainly used for theme configuration with json files. You need to add the json configuration file locally, or manually register the json file.
 
-### 基本使用方法
-主题切换使用Name来标识，一个主题可以对应多个json配置文件。框架主要用json文件进行主题配置的。你需要在本地添加json配置文件，或者手动注册json文件。
-
-手动注册json文件使用如下方法：
+Manually register the json file using the following method:
 
 ```
 + (void)addTheme:(NSString *)themeName forPath:(NSString *)path;
 ```
-json文件格式如下：
+Json file format is as follows:
 
 ```
 {
@@ -50,26 +73,32 @@ json文件格式如下：
         "f5": "16",
     },
     "coordinators": {
-        "LNTabBarBadgePointViewOriginOffset": "{0,0}",
-        "LNTabBarBadgePointViewHighlightOriginOffset": "{0,0}",
-        "LNTabBarBadgeTextViewOriginOffset": "{0,0}",
-        "LNTabBarBadgeTextViewHighlightOriginOffset": "{0,0}"
+        "Offset1": "{0,10}",
+        "Offset2": "{0,30}",
+        "Offset3": "{-15,10}",
+        "Offset4": "{-20,50}"
     }
 }
 ```
-json文件中`colors`,`fonts`,`coordinators`为固定写法，可以添加其他的Key。对应标识可以相同，但是相同的key会覆盖。建议是用一套标准方便维护。
+Json file `colors`,` fonts`, `coordinators` for the fixed wording, you can add other Key. The corresponding identity can be the same, but the same key will be overwritten. It is recommended to maintain with a set of standards.
 
-`colors`颜色字符串标准格式为: `RGB / ARGB / RRGGBB / AARRGGBB`
-`fonts`字体格式为: `"16"`
-`coordinators`格式为: `{1,2} / {1,2,3,4} / {1,2,3,4,5,6}`
+###### Colors format: 
+`RGB / ARGB / RRGGBB / AARRGGBB`
+###### Fonts format: 
+`"16"`
+###### Coordinators format:
+ `{1,2} / {1,2,3,4} / {1,2,3,4,5,6}`
 
-####基础使用实列：
-`NSObject+LNTheme.h`这个类包含了所支持基础的设置方法。
+#### How to use LNTheme
+`NSObject+LNTheme.h`This class contains the set-up methods that are supported.
 
 ```
 @property (strong, nonatomic)NSMutableDictionary *themePickers;
+- (void)updateFont;
 - (void)updateTheme;
+- (void)ln_customFontAction:(id(^)(void))block;
 - (void)ln_customThemeAction:(id(^)(void))block;
+- (void)setThemePicker:(NSObject *)object selector:(NSString *)sel picker:(LNThemePicker *)picker;
 @end
 
 @interface UIColor (LNTheme)
@@ -77,69 +106,43 @@ json文件中`colors`,`fonts`,`coordinators`为固定写法，可以添加其他
 @end
 ...
 ```
-####颜色多主题设置
+#### Color multi-theme settings
 ```
-//UIView 设置背景颜色
+//UIView 
 [self.view ln_backgroundColor:@"c8"];
 
-//UILabel 设置Text颜色
+//UILabel 
 [self.label ln_textColor:@"c5"];
 
-//UITextField 设置text颜色
+//UITextField 
 [self.textField ln_textColor:@"c8"];
 
-//UISwitch 设置打开的颜色
+//UISwitch 
 [self.testSwitch ln_onTintColor:@"c8"];
 ```
-####字体多主题设置
+#### Font multi-theme settings
 ```
-//设置UINavigationBar 的titleTextAttributes属性
+//UINavigationBar & titleTextAttributes
 [navBar ln_titleTextAttributesColorType:@"c9" font:@"f10"];
 ```
-####图片多主题设置
+#### Picture multi-theme settings
 ```
-//UIImageView 设置图片
+//UIImageView
 [self.imageview ln_imageNamed:@"cm2_chat_bg"];
 
-//UIButton 设置高亮状态下背景图片
+//UIButton
 [self.button ln_backgroundImageNamed:@"cm2_edit_cmt_bg" forState:UIControlStateHighlighted];
 ```
+Picture custom colors can be used by the method provided by this extension of `UIImage + Tint.h`.
 
-图片自定义颜色可以使用`UIImage + Tint.h`这个扩展所提供的方法。
-
-####获取主题相关属性
-获取相关属相值使用`LNTheme.h`中包含的方法，通过Key来获取。
+#### Topic related attributes
+Get the relevant dependency values using the methods contained in `LNTheme.h`, and get them through Key.
 
 ```
-/**
-    基础数据结构对象 Font
-    @param type 名称
-    @return UIFont
- */
 + (UIFont *)fontForType:(NSString *)type;
-/**
-    基础数据结构对象Image，和JSON文件同级目录或者BUNDLE
-    @param name 名称
-    @return UIImage
- */
 + (UIImage *)imageNamed:(NSString *)name;
-/**
-    基础数据结构对象 Color
-    @param type 名称
-    @return UIColor
- */
 + (UIColor *)colorForType:(NSString *)type;
-/**
-    除Color,Font,Image,Coorderate之外
-    @param type 名称
-    @return id值
- */
 + (id)otherForType:(NSString *)type;
-/**
-    基础数据结构对象 Coorderate
-    @param type 名称 格式：{1,1,1,1}
-    @return 值
- */
 + (CGSize)sizeForType:(NSString *)type;
 + (CGRect)rectForType:(NSString *)type;
 + (CGPoint)pointForType:(NSString *)type;
@@ -148,13 +151,13 @@ json文件中`colors`,`fonts`,`coordinators`为固定写法，可以添加其他
 + (CGAffineTransform)affineTransformForType:(NSString *)type;
 ```
 
-####其他
-如果没有包含所设置的选项可以手动刷新控件相关属性，使用`NSObject+LNTheme.h`中包含的方法：
+#### Other
+If you do not include the set options, you can manually refresh the control-related properties, using the methods contained in `NSObject + LNTheme.h`:
 
 ```
 - (void)ln_customThemeAction:(id(^)(void))block;
 ```
-如主题切换时刷新UITableView
+For example, when the topic is switched, the UITableView is refreshed
 
 ```
 __weak typeof(self) wself= self;
@@ -163,60 +166,11 @@ __weak typeof(self) wself= self;
     return nil;
 }];
 ```
-
-## Introduction
-### CocoaPods
-要使用CocoaPods时在Podfile中填写：
-
-```
-pod 'LNTheme'
-```
-### Carthage
-要使用Carthage时在Cartfile中填写：
-
-```
-github "wedxz/LNTheme"
-```
-### 源码安装
-```
-将“LNTheme/LNTheme”文件夹中的所有文件复制到您的项目中
-```
-## Demo
-使用网易云音乐 API
-
-<p align="center">
-    <img src="./images/demo.png">
-</p>
-
 ## Contribution
-
-### Issue
-如果你发现一个错误或需要帮助，你可以 [create a issue](https://github.com/wedxz/LNTheme/issues/new)
-
-### Contributors
 [vvusu](https://github.com/wedxz)
 
 ## License
+<a href="https://github.com/wedxz/LNTheme/blob/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat"></a>
 
-Copyright (c) 2016 vvusu (http://github.com/wedxz)
-
-LNTheme is available under the MIT license. See the LICENSE file for more info.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Copyright (c) 2016 vvusu 
 
