@@ -4,12 +4,12 @@
   'roots': [
     {
       'type': 'directory',
-      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-fzztdmeuhsyycdghmxdjwqueopta/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers",
+      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/LNTheme-hgtztomxnehltkhdogacjaaprrhu/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers",
       'contents': [
         {
           'type': 'file',
           'name': "LNTheme-Swift.h",
-          'external-contents': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-fzztdmeuhsyycdghmxdjwqueopta/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers/LNTheme-Swift.h"
+          'external-contents': "/Users/vvusu/Library/Developer/Xcode/DerivedData/LNTheme-hgtztomxnehltkhdogacjaaprrhu/Build/Products/Debug-iphonesimulator/LNTheme.framework/Headers/LNTheme-Swift.h"
         },
         {
           'type': 'file',
@@ -40,7 +40,7 @@
     },
     {
       'type': 'directory',
-      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/VVUSU-fzztdmeuhsyycdghmxdjwqueopta/Build/Products/Debug-iphonesimulator/LNTheme.framework/Modules",
+      'name': "/Users/vvusu/Library/Developer/Xcode/DerivedData/LNTheme-hgtztomxnehltkhdogacjaaprrhu/Build/Products/Debug-iphonesimulator/LNTheme.framework/Modules",
       'contents': [
         {
           'type': 'file',
