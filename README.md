@@ -25,9 +25,12 @@ Dynamic theme switching framework that supports local multi-theme configuration 
 Use Netease cloud music API
 
 <p align="left">
-    <img src="./images/demo_1.gif" style="zoom:80%" align=left/>
-    <img src="./images/demo_2.gif" style="zoom:80%" align=right/>
+    <img src="./images/demo_1.gif" style="zoom:80%" align=center/>
 </p>
+
+<p align="left">
+    <img src="./images/demo_2.gif" style="zoom:80%" align=center/>
+</p
 
 ## Installation
 ### CocoaPods
