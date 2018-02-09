@@ -58,34 +58,38 @@ static NSHashTable *themeHashTable;
 //更新主题
 - (void)updateTheme {
     isChangeTheme = YES;
-    for (NSObject *object in self.themeHashTable) {
-        [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
-            [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.type != ThemePicker_Font) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [object performThemePicker:key picker:obj];
-                    });
-                }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (NSObject *object in self.themeHashTable) {
+            [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
+                [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.type != ThemePicker_Font) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [object performThemePicker:key picker:obj];
+                        });
+                    }
+                }];
             }];
-        }];
-    }
+        }
+    });
     isChangeTheme = NO;
 }
 
 //更新字体
 - (void)updateFont {
     isChangeTheme = YES;
-    for (NSObject *object in self.themeHashTable) {
-        [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
-            [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.type == ThemePicker_Font) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [object performThemePicker:key picker:obj];
-                    });
-                }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (NSObject *object in self.themeHashTable) {
+            [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
+                [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.type == ThemePicker_Font) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [object performThemePicker:key picker:obj];
+                        });
+                    }
+                }];
             }];
-        }];
-    }
+        }
+    });
     isChangeTheme = NO;
 }
 
