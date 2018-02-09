@@ -19,7 +19,8 @@ typedef NS_ENUM(NSInteger, LNThemePickerType) {
     ThemePicker_StatusBar
 };
 
-typedef id (^LNThemePickerBlock)();
+typedef id (^LNThemePickerBlock)(void);
+
 @interface LNThemePicker : NSObject
 @property (copy, nonatomic) LNThemePickerBlock block;
 @property (assign, nonatomic) LNThemePickerType type;
