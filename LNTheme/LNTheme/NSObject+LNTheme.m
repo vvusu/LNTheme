@@ -35,10 +35,8 @@ static NSHashTable *themeHashTable;
 
 - (void)setThemePickers:(NSMutableDictionary *)themePickers {
     objc_setAssociatedObject(self, &LNTheme_ThemeMap, themePickers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (themePickers) {
-        if (!isChangeTheme) {
-            [self.themeHashTable addObject:self];
-        }
+    if (themePickers && !isChangeTheme) {
+        [self.themeHashTable addObject:self];
     }
 }
 
@@ -57,9 +55,11 @@ static NSHashTable *themeHashTable;
 
 //更新主题
 - (void)updateTheme {
+    if (isChangeTheme) { return; }
     isChangeTheme = YES;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (NSObject *object in self.themeHashTable) {
+    NSArray *objects = [self.themeHashTable allObjects];
+    for (NSObject *object in [objects reverseObjectEnumerator]) {
+        if (object) {
             [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
                 [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (obj.type != ThemePicker_Font) {
@@ -70,15 +70,17 @@ static NSHashTable *themeHashTable;
                 }];
             }];
         }
-    });
+    }
     isChangeTheme = NO;
 }
 
 //更新字体
 - (void)updateFont {
+    if (isChangeTheme) { return; }
     isChangeTheme = YES;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (NSObject *object in self.themeHashTable) {
+    NSArray *objects = [self.themeHashTable allObjects];
+    for (NSObject *object in [objects reverseObjectEnumerator]) {
+        if (object) {
             [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
                 [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (obj.type == ThemePicker_Font) {
@@ -89,7 +91,7 @@ static NSHashTable *themeHashTable;
                 }];
             }];
         }
-    });
+    }
     isChangeTheme = NO;
 }
 
