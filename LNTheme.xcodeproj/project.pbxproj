@@ -82,7 +82,6 @@
 		AFB0A4D61E7A854E003777DF /* customFont.json in Resources */ = {isa = PBXBuildFile; fileRef = AFB0A4D51E7A854E003777DF /* customFont.json */; };
 		AFB618071E120DEF00D15764 /* LNTheme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB617FD1E120DEE00D15764 /* LNTheme.framework */; };
 		AFB6180C1E120DEF00D15764 /* LNThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB6180B1E120DEF00D15764 /* LNThemeTests.m */; };
-		AFB6180E1E120DEF00D15764 /* LNTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = AFB618001E120DEE00D15764 /* LNTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -512,7 +511,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFB6180E1E120DEF00D15764 /* LNTheme.h in Headers */,
 				AF5E52531E667954001E9E82 /* LNTheme.h in Headers */,
 				AF5E52591E667954001E9E82 /* UIImage+Tint.h in Headers */,
 				AF5E52551E667954001E9E82 /* LNThemePicker.h in Headers */,
