@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,20 +40,20 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AlR-72-eyc">
-                    <rect key="frame" x="65.5" y="80" width="245" height="350"/>
+                    <rect key="frame" x="65" y="140" width="245" height="350"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="350" id="4Ka-bl-Uae"/>
                         <constraint firstAttribute="width" secondItem="AlR-72-eyc" secondAttribute="height" multiplier="61:87" id="p65-Yc-Qyz"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBU-Mt-9pd">
-                    <rect key="frame" x="30" y="474.5" width="315" height="12"/>
+                    <rect key="frame" x="30" y="534.5" width="315" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你的名字" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZ8-DB-G8s">
-                    <rect key="frame" x="154.5" y="435" width="65.5" height="19.5"/>
+                    <rect key="frame" x="155" y="495" width="65.5" height="19.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -66,7 +65,7 @@
             </accessibility>
             <constraints>
                 <constraint firstItem="sZ8-DB-G8s" firstAttribute="centerX" secondItem="wBU-Mt-9pd" secondAttribute="centerX" id="DhF-IP-5yf"/>
-                <constraint firstItem="AlR-72-eyc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="LZF-ml-NGw"/>
+                <constraint firstItem="AlR-72-eyc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="140" id="LZF-ml-NGw"/>
                 <constraint firstAttribute="trailing" secondItem="QwH-eO-Wal" secondAttribute="trailing" constant="20" id="RAn-da-nhn"/>
                 <constraint firstItem="sZ8-DB-G8s" firstAttribute="top" secondItem="AlR-72-eyc" secondAttribute="bottom" constant="5" id="WCK-vY-svf"/>
                 <constraint firstItem="wBU-Mt-9pd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="fhw-Kc-L2e"/>

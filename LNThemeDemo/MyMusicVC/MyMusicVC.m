@@ -48,15 +48,10 @@
         return nil;
     }];
     
-    [self ln_customFontAction:^id{
-        NSLog(@"LN____Font Action");
-        return nil;
-    }];
-    
     // Do any additional setup after loading the view.
 }
 - (IBAction)testBtnAction:(id)sender {
-    [LNTheme changeFont:@"custom"];
+    
 }
 
 - (void)didReceiveMemoryWarning {

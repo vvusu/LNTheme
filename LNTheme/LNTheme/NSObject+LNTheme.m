@@ -57,42 +57,58 @@ static NSHashTable *themeHashTable;
 - (void)updateTheme {
     if (isChangeTheme) { return; }
     isChangeTheme = YES;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_group_t dispatchGroup = dispatch_group_create();
     NSArray *objects = [self.themeHashTable allObjects];
     for (NSObject *object in [objects reverseObjectEnumerator]) {
-        if (object) {
-            [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
-                [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (obj.type != ThemePicker_Font) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [object performThemePicker:key picker:obj];
-                        });
-                    }
+        dispatch_group_async(dispatchGroup, queue, ^{
+            if (object) {
+                [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
+                    [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (obj.type != ThemePicker_Font) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [object performThemePicker:key picker:obj];
+                            });
+                        }
+                    }];
                 }];
-            }];
-        }
+            }
+        });
     }
-    isChangeTheme = NO;
+    __weak typeof(self) wself= self;
+    dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
+        isChangeTheme = NO;
+        [wself ln_updateThemeCompleted];
+    });
 }
 
 //更新字体
 - (void)updateFont {
     if (isChangeTheme) { return; }
     isChangeTheme = YES;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_group_t dispatchGroup = dispatch_group_create();
     NSArray *objects = [self.themeHashTable allObjects];
     for (NSObject *object in [objects reverseObjectEnumerator]) {
-        if (object) {
-            [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
-                [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (obj.type == ThemePicker_Font) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [object performThemePicker:key picker:obj];
-                        });
-                    }
+        dispatch_group_async(dispatchGroup, queue, ^{
+            if (object) {
+                [object.themePickers enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *pickers, BOOL *stop) {
+                    [pickers enumerateObjectsUsingBlock:^(LNThemePicker* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (obj.type == ThemePicker_Font) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [object performThemePicker:key picker:obj];
+                            });
+                        }
+                    }];
                 }];
-            }];
-        }
+            }
+        });
     }
-    isChangeTheme = NO;
+    __weak typeof(self) wself= self;
+    dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
+        isChangeTheme = NO;
+        [wself ln_updateThemeCompleted];
+    });
 }
 
 //解析，动态设置属性
@@ -145,12 +161,8 @@ static NSHashTable *themeHashTable;
     }
 }
 
-- (void)ln_customFontAction:(id(^)(void))block {
-    LNThemePicker *picker = [[LNThemePicker alloc] init];
-    picker.type = ThemePicker_Font;
-    picker.block = block;
-    [self setThemePicker:self selector:@"ln_customFontInternalAction" picker:picker];
-}
+//自定义主题事件只是为了注册方法
+- (void)ln_customThemeInternalAction {}
 
 - (void)ln_customThemeAction:(id(^)(void))block {
     LNThemePicker *picker = [[LNThemePicker alloc] init];
@@ -159,13 +171,18 @@ static NSHashTable *themeHashTable;
     [self setThemePicker:self selector:@"ln_customThemeInternalAction" picker:picker];
 }
 
-//自定义主题事件只是为了注册方法
-- (void)ln_customThemeInternalAction {
+//自定义Font触发事件
+- (void)ln_customFontInternalAction {}
+
+- (void)ln_customFontAction:(id(^)(void))block {
+    LNThemePicker *picker = [[LNThemePicker alloc] init];
+    picker.type = ThemePicker_Font;
+    picker.block = block;
+    [self setThemePicker:self selector:@"ln_customFontInternalAction" picker:picker];
 }
 
-//自定义Font触发事件
-- (void)ln_customFontInternalAction {
-}
+// 更新主题成功
+- (void)ln_updateThemeCompleted {}
 
 @end
 

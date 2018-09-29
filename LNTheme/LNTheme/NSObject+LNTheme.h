@@ -14,6 +14,7 @@
 @property (strong, nonatomic)NSMutableDictionary *themePickers;
 - (void)updateFont;
 - (void)updateTheme;
+- (void)ln_updateThemeCompleted;
 - (void)ln_customFontAction:(id(^)(void))block;
 - (void)ln_customThemeAction:(id(^)(void))block;
 - (void)setThemePicker:(NSObject *)object selector:(NSString *)sel picker:(LNThemePicker *)picker;

@@ -71,13 +71,6 @@ FOUNDATION_EXPORT  NSString * const LNTHEME_DEFAULT_NAME;
 - (void)loadLocalJsonFiles;
 
 /**
-    切换字体，初始值为default
-    如果当前主题不存在，则自动切换回default
-    @param fontName 当前字体
- */
-+ (void)changeFont:(NSString *)fontName;
-
-/**
     注册本地字体的路径，可以多次调用
     @param fontName 主题名字 默认主题为LN_DEFAULT_THEME_NAME("default")
     @param path 目录地址

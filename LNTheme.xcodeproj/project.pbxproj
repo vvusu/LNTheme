@@ -511,8 +511,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF5E52531E667954001E9E82 /* LNTheme.h in Headers */,
 				AF5E52591E667954001E9E82 /* UIImage+Tint.h in Headers */,
+				AF5E52531E667954001E9E82 /* LNTheme.h in Headers */,
 				AF5E52551E667954001E9E82 /* LNThemePicker.h in Headers */,
 				AF5E52571E667954001E9E82 /* NSObject+LNTheme.h in Headers */,
 			);
