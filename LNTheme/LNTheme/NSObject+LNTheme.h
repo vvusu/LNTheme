@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "LNThemePicker.h"
 
+// 更新完成通知
+#define LNThemeUpdateCompletedNotification @"LNThemeUpdateCompletedNotification"
+
 @interface NSObject (LNTheme)
 
 @property (strong, nonatomic)NSMutableDictionary *themePickers;

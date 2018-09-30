@@ -182,7 +182,9 @@ static NSHashTable *themeHashTable;
 }
 
 // 更新主题成功
-- (void)ln_updateThemeCompleted {}
+- (void)ln_updateThemeCompleted {
+    [[NSNotificationCenter defaultCenter] postNotificationName:LNThemeUpdateCompletedNotification object:nil userInfo:nil];
+}
 
 @end
 
