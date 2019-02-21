@@ -12,12 +12,12 @@
 
 static BOOL isChangeTheme;
 static void *LNTheme_ThemeMap;
-static NSHashTable *themeHashTable;
+static NSPointerArray *themeHashTable;
 
 @implementation NSObject (LNTheme)
-- (NSHashTable *)themeHashTable {
+- (NSPointerArray *)themeHashTable {
     if (!themeHashTable) {
-        themeHashTable = [NSHashTable weakObjectsHashTable];
+        themeHashTable = [NSPointerArray weakObjectsPointerArray];
     }
     return themeHashTable;
 }
@@ -36,7 +36,7 @@ static NSHashTable *themeHashTable;
 - (void)setThemePickers:(NSMutableDictionary *)themePickers {
     objc_setAssociatedObject(self, &LNTheme_ThemeMap, themePickers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (themePickers && !isChangeTheme) {
-        [self.themeHashTable addObject:self];
+        [self.themeHashTable addPointer:(__bridge void * _Nullable)(self)];
     }
 }
 
@@ -49,7 +49,7 @@ static NSHashTable *themeHashTable;
     [object performThemePicker:sel picker:picker];
     //hastable添加会自动去重
     if (!isChangeTheme) {
-        [self.themeHashTable addObject:object];
+        [self.themeHashTable addPointer:(__bridge void * _Nullable)(object)];
     }
 }
 
